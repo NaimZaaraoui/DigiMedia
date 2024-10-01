@@ -1,0 +1,3282 @@
+@charset "UTF-8";
+/* -----------------------------------------
+    * Template Name: Website Starter Template
+    * Updated: Jun 28 2024
+    * Author: Naim Zaaraoui
+    * PSD Designer: Inspired from KP tutorial
+------------------------------------------- */
+/* ---------------- */
+/* BASE             */
+/* ---------------- */
+@layer root, reset, base, layout, components, utilities;
+/* ------------------------- */
+/* GLOBAL CUSTOM PROPERTIES  */
+/* ------------------------- */
+@layer root {
+  :root {
+    --clr-neutral-000: hsl(0, 0%, 100%);
+    --clr-neutral-50: hsl(0, 0%, 97%);
+    --clr-neutral-100: hsl(0, 0%, 94%);
+    --clr-neutral-150: hsl(0, 0%, 91%);
+    --clr-neutral-200: hsl(0, 0%, 82.5%);
+    --clr-neutral-300: hsl(0, 0%, 69%);
+    --clr-neutral-400: hsl(0, 0%, 60%);
+    --clr-neutral-500: hsl(0, 0%, 50%);
+    --clr-neutral-600: hsl(0, 0%, 40%);
+    --clr-neutral-700: hsl(0, 0%, 30%);
+    --clr-neutral-800: hsl(0, 0%, 17.5%);
+    --clr-neutral-900: hsl(0, 0%, 7.5%);
+    --clr-neutral-1000: hsl(0, 0%, 0%);
+    --clr-primary-400: hsl(329, 94%, 69%);
+    --clr-accent-400: hsl(244, 68%, 65%);
+    --clr-secondary-400: hsl(20, 89%, 65%);
+    --ff-base: Poppins, sans-serif;
+    --fs-100: clamp(0.625rem, 0.5938rem + 0.1562cqi, 0.75rem);
+    --fs-200: clamp(0.75rem, 0.7188rem + 0.1875cqi, 0.8333rem);
+    --fs-300: clamp(0.8333rem, 0.7971rem + 0.1812cqi, 0.9375rem);
+    --fs-400: clamp(1rem, 0.9565rem + 0.2174cqi, 1.125rem);
+    --fs-500: clamp(1.2rem, 1.1478rem + 0.2609cqi, 1.35rem);
+    --fs-600: clamp(1.62rem, 1.5041rem + 0.5793cqi, 1.9531rem);
+    --fs-700: clamp(1.944rem, 1.771rem + 0.8651cqi, 2.4414rem);
+    --fs-800: clamp(2.3328rem, 2.0827rem + 1.2504cqi, 3.0518rem);
+    --fs-900: clamp(2.7994rem, 2.4462rem + 1.7658cqi, 3.8147rem);
+    --fs-1000: clamp(3.3592rem, 2.8691rem + 2.4507cqi, 4.7684rem);
+    --fw-light: 300;
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+    --fw-black: 900;
+    --spacer-0: 0rem;
+    --spacer-1: 0.25rem;
+    --spacer-2: 0.5rem;
+    --spacer-3: 1rem;
+    --spacer-4: 1.5rem;
+    --spacer-5: 2rem;
+    --spacer-6: 3rem;
+    --radius-sm: var(--spacer-2);
+    --radius-md: var(--spacer-4);
+    --radius-lg: var(--spacer-6);
+    --radius-pull: 100vw;
+    --shadow-100: 0px 0.25em 0.5em hsl(from var(--clr-neutral-1000) h s l/0.03);
+    --shadow-200: 0 0 1em hsl(from var(--clr-neutral-1000) h s l/0.1);
+    --scheme-color: light dark;
+    --section-spacer: clamp(5rem, 10vh, 6rem);
+    --transition-300: 300ms ease;
+    --transition-500: 500ms ease;
+  }
+}
+/* ------------------- */
+/* RESET               */
+/* ------------------- */
+@layer reset {
+  /* Box sizing rules, Remove all default paddings and margins in favour of better control in authored CSS */
+  *,
+  *::before,
+  *::after {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  /* Set core root defaults */
+  html {
+    color-scheme: var(--scheme-color);
+  }
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+  /* Balance text wrapping on headings */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  /* Set shorter line heights on headings and interactive elements */
+  h1,
+  h2,
+  h3,
+  h4,
+  input,
+  label,
+  button {
+    line-height: 1.1;
+  }
+  p,
+  li:not[class],
+  figcaption {
+    max-width: 65ch;
+    text-wrap: pretty;
+  }
+  /* Remove default list style */
+  ol,
+  ul {
+    list-style: none;
+  }
+  /* Reset links */
+  a,
+  a:visited {
+    color: currentColor;
+    text-decoration: none;
+    text-decoration-color: currentColor;
+  }
+  /* Reset form elements */
+  input,
+  button,
+  select,
+  optgroup,
+  textarea {
+    border: 0;
+    outline: 0;
+    background: none;
+    font: inherit;
+  }
+  button:not(:disabled),
+  [type=button]:not(:disabled),
+  [type=reset]:not(:disabled),
+  [type=submit]:not(:disabled) {
+    cursor: pointer;
+  }
+  textarea {
+    resize: none;
+  }
+  /* Make sure textareas without a rows attribute are not tiny */
+  textarea:not([rows]) {
+    min-height: 10rem;
+  }
+  /* Make images responsive & easier to work with */
+  img,
+  picture,
+  svg:not(.svg-inline--fa) {
+    display: block;
+    /* Ensures that the image does not exceed its container's width */
+    max-inline-size: 100%;
+    /* Maintain image aspect ratio */
+    block-size: auto;
+    /* Ensures that the background image does not repeat itself */
+    background-repeat: no-repeat;
+    /* Ensures that the image fills the container without repeating */
+    background-size: cover;
+    /* Adds a slight italic effect to the image alt text */
+    font-style: italic;
+    /* Aligns the image vertically with the text and remove annoying image spacing */
+    vertical-align: middle;
+    /* Adds some margin around the image to improve its spacing with other elements */
+    shape-margin: 1rem;
+    /* Scales the image to cover its container box */
+    -o-object-fit: cover;
+    object-fit: cover;
+    /* Center the image within its container box */
+    -o-object-position: center;
+    object-position: center;
+  }
+  /* Makes focus through keyboard easier */
+  :focus-visible {
+    outline: 3px solid var(--clr-accent-400);
+    outline-offset: 3px;
+  }
+  /* Scrollbar */
+  /* Selection */
+  ::-moz-selection {
+    color: var(--clr-primary-400);
+    background: var(--clr-neutral-900);
+  }
+  ::selection {
+    color: var(--clr-primary-400);
+    background: var(--clr-neutral-900);
+  }
+  /* Placeholder */
+  ::-webkit-input-placeholder {
+    color: var(--clr-neutral-300);
+    font: inherit;
+  }
+  ::-moz-placeholder {
+    color: var(--clr-neutral-300);
+    font: inherit;
+  }
+  :-ms-input-placeholder {
+    color: var(--clr-neutral-300);
+    font: inherit;
+  }
+  ::-ms-input-placeholder {
+    color: var(--clr-neutral-300);
+    font: inherit;
+  }
+  ::placeholder {
+    color: var(--clr-neutral-300);
+    font: inherit;
+  }
+  /* Remove all animations and transitions for
+  people that prefer not to see them */
+  @media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+      scroll-behavior: auto !important;
+    }
+    *,
+    *::before,
+    *::after {
+      -webkit-transition-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      -webkit-animation-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      -webkit-animation-iteration-count: 1 !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+/* ---------------- */
+/* GENEARL RULES    */
+/* ---------------- */
+@layer base {
+  /* Set core body defaults */
+  body {
+    background: var(--clr-neutral-000);
+    color: var(--clr-neutral-900);
+    font-family: var(--ff-base);
+    font-size: var(--fs-400);
+    font-weight: var(--fw-regular);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  /* Links general styling */
+  a {
+    color: inherit;
+    -webkit-transition: var(--transition-300);
+    transition: var(--transition-300);
+  }
+  a:is(:hover, :focus-visible) {
+    color: var(--clr-primary-400);
+  }
+}
+/* ------------------ */
+/* TYPOGRAPHY         */
+/* ------------------ */
+@layer base {
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5 {
+    color: var(--clr-neutral-800);
+    font-weight: var(--fw-bold);
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  h1,
+  .h1 {
+    font-size: var(--fs-900);
+  }
+  h2,
+  .h2 {
+    font-size: var(--fs-700);
+  }
+  h3,
+  .h3 {
+    font-size: var(--fs-600);
+  }
+  h4,
+  .h4 {
+    font-size: var(--fs-500);
+  }
+  h5,
+  .h5 {
+    font-size: var(--fs-400);
+  }
+  p {
+    color: var(--clr-neutral-300);
+    font-size: calc(var(--fs-500) - var(--fs-400) + var(--fs-200));
+    font-weight: var(--fw-light);
+    line-height: 1.9;
+  }
+}
+/* ---------------- */
+/* LAYOUT           */
+/* ---------------- */
+/** GRID SYSTEM */
+@layer layout {
+  /* Use data-type="fluid" to become in the full width mode :) */
+  .base-wrapper {
+    /* I think 12 columns are perfect for my needs :) */
+    --col-count: 12;
+    /* Our content area width, this will be adjusted across different breakpoints */
+    --content-max-width: 100%;
+    /* Some spacing please to not have accidents with page edges :) */
+    --min-inline-gutter: 1rem;
+    /* Don't change this */
+    /* For a wrapper, this is a single column width(not really beacuse it's just for the content area columns) :) */
+    --content-col-width: calc(var(--content-max-width) / var(--col-count));
+    position: relative;
+    display: -ms-grid;
+    display: grid;
+    /* Oh that's look complicated BUT don't give it a mind, it's just some grid wonderful syntaxing :) */
+    /* Every wrapper grandparent OR parent will have  5 descendants: each has a width, the middle CHILD has 12 children, so we have 16 columns for now :) */
+    -ms-grid-columns: [breakout-start-start] var(--min-inline-gutter) [breakout-start] minmax(0, 1fr) [breakout-end-start content-start] (minmax(0, var(--content-col-width)))[var(--col-count)] [breakout-start-end content-end] minmax(0, 1fr) [breakout-end] var(--min-inline-gutter) [breakout-end-end];
+    grid-template-columns: [breakout-start-start] var(--min-inline-gutter) [breakout-start] minmax(0, 1fr) [breakout-end-start content-start] repeat(var(--col-count), minmax(0, var(--content-col-width))) [breakout-start-end content-end] minmax(0, 1fr) [breakout-end] var(--min-inline-gutter) [breakout-end-end];
+    /* Some borders for Visualisation, if you want :) */
+    /* border: 5px dotted orangered;
+    > * {
+      border: 2px dashed green;
+    } */
+  }
+  /* I just have talking about this above, responsively change our content area width across different viewport sizes :) */
+  @media (width >= 36em) {
+    .base-wrapper:not([data-type=fluid]) {
+      --content-max-width: 33.75rem;
+    }
+  }
+  @media (width >= 48em) {
+    .base-wrapper:not([data-type=fluid]) {
+      --content-max-width: 45rem;
+    }
+  }
+  @media (width >= 62em) {
+    .base-wrapper:not([data-type=fluid]) {
+      --content-max-width: 60rem;
+    }
+  }
+  @media (width >= 75em) {
+    .base-wrapper:not([data-type=fluid]) {
+      --content-max-width: 71.25rem;
+    }
+  }
+  @media (width >= 87.5em) {
+    .base-wrapper:not([data-type=fluid]) {
+      --content-max-width: 82.5rem;
+    }
+  }
+  /* BUT we can change content area width without waiting our viewport size to be less than ME, I mean than a specific size, just use utility classes: cols-{sm, md, lg, xl, xxl} */
+  /* You can even come into a section "A" and give it a custom content area width:
+  .section-A {
+      --content-max-width: 100px;
+  }
+  */
+  /* Just to avoid some troubles :) */
+  script {
+    display: none !important;
+  }
+  /* If you need columns use a row, if you don't need it just don't use it, isn't simple? :) */
+  .row {
+    /* Let's space our columns and rows using happy custom property :) */
+    --gap: 1rem;
+    --gap-row: var(--gap);
+    --gap-col: var(--gap);
+    /* Our row will be a grid that can hold 12 spaced items */
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: ;
+    grid-template-columns: repeat(var(--col-count), minmax(0, 1fr));
+    gap: var(--gap-row) var(--gap-col);
+    /* Let's talk about our row COLUMNS, they look awesome :) */
+  }
+  .row > * {
+    /* From where this little column will start to grow */
+    --col-start: auto;
+    /* How much it will grow (not really because we need some adjustment to be able to set some offsets) :) */
+    --col-width: var(--col-count);
+    /* And VOILA, this is how much our column will grow considering adding some starting or ending offsets :) */
+    --col-total-width: calc(
+      var(--col-width) + var(--offset-start, 0) + var(--offset-end, 0)
+    );
+    /* Single column width, just used for calculating offsets, I am NOT a big fan of MATHS :) */
+    --col-size: calc(
+      (
+          (100% - var(--gap-col) * (var(--col-total-width) - 1)) /
+            var(--col-total-width)
+        ) + var(--gap-col)
+    );
+    grid-column: var(--col-start)/span var(--col-total-width);
+    /* By default, there is no offsets: --offset-start & --offset-end are undefined :) */
+    -webkit-margin-start: calc(var(--offset-start) * var(--col-size));
+            margin-inline-start: calc(var(--offset-start) * var(--col-size));
+    -webkit-margin-end: calc(var(--offset-end) * var(--col-size));
+            margin-inline-end: calc(var(--offset-end) * var(--col-size));
+  }
+  .row.items-center {
+    place-items: center;
+  }
+  .row.content-center {
+    place-content: center;
+  }
+  /* Now let's talk about DIRECT CHILDREN of wrapper, they can be rows or maybe not :)  */
+  .base-wrapper > * {
+    /* Imagine this situation or don't just look to this COMMENTED-HTML CODE: 
+
+    <section class="row">
+        <div class="card" />
+        <div class="card" />
+        <div class="card" />
+    <section />
+
+    I want have a 'blue' background on this 'section'(so I need it to be full width, from viewport edge to edge) but I want my 'content area' to be narrow not full-splitted and my columns to live there, EASY just wrap these cards in another <div> and give a ´.row´ class and then add a ´max-width´ and some margins and ... No STOP, I don't want to add another <div>, I want to keep the markup as simple as possible, THATS WHY we bring to you this CUSTOM-PROPERTY: it will be used to set an INLINE-PADDING on this section respecting the given CONTENT-AREA WIDTH without side effects and with perfect columns centering, I think you don't mind using some inline-padding on your rows :)
+    */
+    --row-inline-gutter: max(
+      var(--min-inline-gutter),
+      calc((100% - var(--content-max-width)) / 2)
+    );
+    /* By default, ALL rows start from 0 and get to hero, I mean to -1, so they're full-width by default but you can change this easily using utility classes, custom-properties or even grid-column on your row, THIS IS THE POWER OF CSS GRID LADIES & GENTELMAN :) */
+    grid-column: var(--cols-start, 1)/calc(var(--cols-start, 1) * -1);
+    /* They are full-width, but as we was talking content & columns are pushed to the MAIN CONTENT AREA defined in the ´wrapper´ grandfather :) */
+    padding-inline: var(--row-start-gutter, var(--row-inline-gutter)) var(--row-end-gutter, var(--row-inline-gutter));
+    /* BUT what if THIS DIRECT CHILD has a class of ´wrapper´? To not complicat things, set ´wrapper´ class on the main element that will hold the whole page (<body /> or container <div />) & on the <main> element if you are using semantic HTML in your codebase (& I think you are), in this case the NESTED ´wrapper´ will inherit the same grandfather ´wrapper´ architecture with no gaps and no inline-padding :) */
+    /* Some handy modifiers, try them I think you may like using them */
+  }
+  .base-wrapper > *.base-wrapper {
+    --gap: 0;
+    --row-inline-gutter: 0;
+    -ms-grid-columns: subgrid;
+    grid-template-columns: subgrid;
+  }
+  .base-wrapper > *.no-gutter {
+    --row-inline-gutter: 0;
+  }
+  .base-wrapper > *.no-start-gutter {
+    --row-start-gutter: 0;
+  }
+  .base-wrapper > *.no-end-gutter {
+    --row-end-gutter: 0;
+  }
+  .base-wrapper > *.breakout {
+    grid-column: breakout;
+  }
+  .base-wrapper > *.breakout-start {
+    grid-column: breakout-start;
+  }
+  .base-wrapper > *.breakout-end {
+    grid-column: breakout-end;
+  }
+  .base-wrapper > *.content {
+    grid-column: content;
+  }
+  /* To create responsive equal-width cols */
+  .cols-auto {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  }
+  /* To create equal-width cols across all screen sizes, on a single row no wrapping */
+  .cols-equal {
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+  }
+}
+/** PRIMARY HEADER */
+.pre-header {
+  padding-block: 1em;
+  background-color: var(--clr-neutral-100);
+  color: var(--clr-neutral-300);
+}
+.pre-header .info-list {
+  --gap: 1rem 2.5rem;
+}
+.pre-header .info-list a {
+  --gap: 0.5rem;
+}
+@media (width < 48em) {
+  .pre-header .info-list > li:last-child {
+    display: none;
+  }
+}
+
+.primary-header {
+  position: sticky;
+  inset-inline: 0;
+  z-index: 999;
+  padding-block: 2em;
+  background-color: var(--clr-neutral-000);
+  -webkit-box-shadow: var(--shadow-100);
+          box-shadow: var(--shadow-100);
+  -webkit-transition: var(--transition-500);
+  transition: var(--transition-500);
+  -webkit-transition-property: inset-block-start, padding-block;
+  transition-property: inset-block-start, padding-block;
+}
+.is-scrolled .primary-header {
+  -webkit-animation: slideInDown 500ms ease-in-out;
+          animation: slideInDown 500ms ease-in-out;
+  inset-block-start: 0;
+  padding-block: 1em;
+}
+
+@-webkit-keyframes slideInDown {
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+.primary-nav {
+  --gap: 2.5rem;
+}
+@media (width < 62em) {
+  .primary-nav .btn {
+    display: none;
+  }
+}
+@media (width < 62em) {
+  .primary-nav {
+    display: none;
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-start: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+    width: min(100% - 1rem, 30rem);
+    background-color: var(--clr-neutral-50);
+  }
+}
+
+.nav-list {
+  --gap: 1.5rem;
+}
+.nav-list a {
+  display: inline-block;
+  font-size: var(--fs-300);
+  font-weight: var(--fw-medium);
+  letter-spacing: 1px;
+}
+.nav-list a.is-active {
+  color: var(--clr-primary-400);
+}
+@media (width < 62em) {
+  .nav-list {
+    --gap: 0;
+    --direction: column;
+    --align: initial;
+    width: 100%;
+    text-align: center;
+  }
+  .nav-list a {
+    width: 100%;
+    padding: 1em;
+    -webkit-border-after: 1px solid var(--clr-neutral-100);
+            border-block-end: 1px solid var(--clr-neutral-100);
+  }
+  .nav-list a:first-child {
+    -webkit-border-before: 1px solid var(--clr-neutral-100);
+            border-block-start: 1px solid var(--clr-neutral-100);
+  }
+  .nav-list a:is(:hover, :focus-visible) {
+    background-color: var(--clr-neutral-150);
+  }
+}
+
+.nav-toggler {
+  position: relative;
+  width: 32px;
+  height: 40px;
+}
+.nav-toggler span {
+  display: block;
+  inset-block-start: 16px;
+  width: 100%;
+}
+.nav-toggler span, .nav-toggler span::before, .nav-toggler span::after {
+  position: absolute;
+  inset-inline-start: 0;
+  height: 2px;
+  background-color: var(--clr-neutral-900);
+  -webkit-transition: all var(--transition-300);
+  transition: all var(--transition-300);
+}
+.nav-toggler span::before, .nav-toggler span::after {
+  content: "";
+  width: 75%;
+}
+.nav-toggler span::before {
+  -webkit-transform-origin: 33% 100%;
+          transform-origin: 33% 100%;
+  inset-block-start: -10px;
+}
+.nav-toggler span::after {
+  -webkit-transform-origin: 33% 0;
+          transform-origin: 33% 0;
+  inset-block-start: 10px;
+}
+.nav-toggler[aria-expanded=true] span {
+  background-color: transparent;
+}
+.nav-toggler[aria-expanded=true] span::before, .nav-toggler[aria-expanded=true] span::after {
+  width: 100%;
+}
+.nav-toggler[aria-expanded=true] span::before {
+  -webkit-transform: translateY(6px) translateX(1px) rotate(45deg);
+          transform: translateY(6px) translateX(1px) rotate(45deg);
+}
+.nav-toggler[aria-expanded=true] span::after {
+  -webkit-transform: translateY(-6px) translateX(1px) rotate(-45deg);
+          transform: translateY(-6px) translateX(1px) rotate(-45deg);
+}
+@media (width >= 62em) {
+  .nav-toggler {
+    display: none;
+  }
+}
+
+/** PRIMARY FOOTER */
+@layer layout {
+  .primary-footer {
+    padding-block: 1.5em;
+    background: url("../images/footer-bg.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+  .primary-footer * {
+    color: var(--clr-neutral-000);
+    font-size: var(--fs-300);
+  }
+  .primary-footer a {
+    font-weight: var(--fw-medium);
+  }
+  .primary-footer a:is(:hover, :focus-visible) {
+    color: var(--clr-accent-400);
+  }
+}
+/** FLOW */
+@layer layout {
+  .flow > *:where(:not(:first-child)) {
+    -webkit-margin-before: var(--flow-spacer, var(--spacer-3));
+            margin-block-start: var(--flow-spacer, var(--spacer-3));
+  }
+}
+/** GRID */
+@layer utilities {
+  .grid {
+    --gap: 1rem;
+    display: -ms-grid;
+    display: grid;
+    gap: var(--gap);
+  }
+}
+/** FLEX */
+@layer utilities {
+  .flex {
+    /*
+    * --gap: Sets the gap between the child elements
+    * --direction: Sets the flex-direction
+    * --align: Sets the align-items
+    * --justify: Sets the justify-content
+    */
+    --gap: 1rem;
+    --direction: row;
+    --align: center;
+    --justify: start;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: var(--direction);
+            flex-direction: var(--direction);
+    -webkit-box-align: var(--align);
+        -ms-flex-align: var(--align);
+            align-items: var(--align);
+    -webkit-box-pack: var(--justify);
+        -ms-flex-pack: var(--justify);
+            justify-content: var(--justify);
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    gap: var(--gap);
+  }
+  .flex[data-nowrap] {
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+  }
+}
+/** REPEL */
+@layer utilities {
+  .repel {
+    /**
+    * Layout to stretch items across the main axis and make the available space in between
+    */
+    --direction: row;
+    --align: center;
+    --gap: 1rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: var(--direction);
+            flex-direction: var(--direction);
+    -webkit-box-align: var(--align);
+        -ms-flex-align: var(--align);
+            align-items: var(--align);
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    gap: var(--gap);
+  }
+  .repel[data-nowrap] {
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+  }
+}
+/* ---------------- */
+/* COMPONENTS       */
+/* ---------------- */
+/** BUTTONS */
+@layer components {
+  .btn {
+    --btn-padding: 1em 2em;
+    --btn-border: 1px solid transparent;
+    --btn-radius: var(--radius-pull);
+    --btn-bg: transparent;
+    --btn-text: inherit;
+    --btn-fs: var(--fs-300);
+    --btn-fw: var(--fw-semibold);
+    display: inline flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: var(--btn-padding);
+    border: var(--btn-border);
+    border-radius: var(--btn-radius);
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: var(--btn-fs);
+    font-weight: var(--btn-fw);
+    line-height: 1;
+    letter-spacing: 0.5px;
+    -webkit-transition: var(--transition-300);
+    transition: var(--transition-300);
+  }
+  .btn[data-type=primary] {
+    --btn-text: var(--clr-primary-400);
+    border-color: var(--clr-primary-400);
+  }
+  .btn[data-type=primary]:is(:hover, :focus-visible) {
+    --btn-bg: var(--clr-primary-400);
+    --btn-text: var(--clr-neutral-000);
+  }
+  .btn--block {
+    width: 100%;
+  }
+}
+/* ---------------- */
+/* UTILITIES        */
+/* ---------------- */
+/** GRID SYSTEM UTILITY CLASSES */
+/* How many columns you need */
+.cols-1 > * {
+  --col-width: 12;
+}
+
+.cols-2 > * {
+  --col-width: 6;
+}
+
+.cols-3 > * {
+  --col-width: 4;
+}
+
+.cols-4 > * {
+  --col-width: 3;
+}
+
+.cols-6 > * {
+  --col-width: 2;
+}
+
+.cols-12 > * {
+  --col-width: 1;
+}
+
+@media (width >= 36em) {
+  .sm-cols-1 > * {
+    --col-width: 12;
+  }
+  .sm-cols-2 > * {
+    --col-width: 6;
+  }
+  .sm-cols-3 > * {
+    --col-width: 4;
+  }
+  .sm-cols-4 > * {
+    --col-width: 3;
+  }
+  .sm-cols-6 > * {
+    --col-width: 2;
+  }
+  .sm-cols-12 > * {
+    --col-width: 1;
+  }
+}
+@media (width >= 48em) {
+  .md-cols-1 > * {
+    --col-width: 12;
+  }
+  .md-cols-2 > * {
+    --col-width: 6;
+  }
+  .md-cols-3 > * {
+    --col-width: 4;
+  }
+  .md-cols-4 > * {
+    --col-width: 3;
+  }
+  .md-cols-6 > * {
+    --col-width: 2;
+  }
+  .md-cols-12 > * {
+    --col-width: 1;
+  }
+}
+@media (width >= 62em) {
+  .lg-cols-1 > * {
+    --col-width: 12;
+  }
+  .lg-cols-2 > * {
+    --col-width: 6;
+  }
+  .lg-cols-3 > * {
+    --col-width: 4;
+  }
+  .lg-cols-4 > * {
+    --col-width: 3;
+  }
+  .lg-cols-6 > * {
+    --col-width: 2;
+  }
+  .lg-cols-12 > * {
+    --col-width: 1;
+  }
+}
+@media (width >= 75em) {
+  .xl-cols-1 > * {
+    --col-width: 12;
+  }
+  .xl-cols-2 > * {
+    --col-width: 6;
+  }
+  .xl-cols-3 > * {
+    --col-width: 4;
+  }
+  .xl-cols-4 > * {
+    --col-width: 3;
+  }
+  .xl-cols-6 > * {
+    --col-width: 2;
+  }
+  .xl-cols-12 > * {
+    --col-width: 1;
+  }
+}
+@media (width >= 87.5em) {
+  .xxl-cols-1 > * {
+    --col-width: 12;
+  }
+  .xxl-cols-2 > * {
+    --col-width: 6;
+  }
+  .xxl-cols-3 > * {
+    --col-width: 4;
+  }
+  .xxl-cols-4 > * {
+    --col-width: 3;
+  }
+  .xxl-cols-6 > * {
+    --col-width: 2;
+  }
+  .xxl-cols-12 > * {
+    --col-width: 1;
+  }
+}
+/* From where you like you row to start */
+.cols-start-1 {
+  --cols-start: 1;
+}
+
+.cols-start-2 {
+  --cols-start: 2;
+}
+
+.cols-start-3 {
+  --cols-start: 3;
+}
+
+.cols-start-4 {
+  --cols-start: 4;
+}
+
+.cols-start-5 {
+  --cols-start: 5;
+}
+
+.cols-start-6 {
+  --cols-start: 6;
+}
+
+.cols-start-7 {
+  --cols-start: 7;
+}
+
+.cols-start-8 {
+  --cols-start: 8;
+}
+
+.cols-start-9 {
+  --cols-start: 9;
+}
+
+.cols-start-10 {
+  --cols-start: 10;
+}
+
+.cols-start-11 {
+  --cols-start: 11;
+}
+
+.cols-start-12 {
+  --cols-start: 12;
+}
+
+.cols-start-13 {
+  --cols-start: 13;
+}
+
+.cols-start-14 {
+  --cols-start: 14;
+}
+
+@media (width >= 36em) {
+  .sm-cols-start-1 {
+    --cols-start: 1;
+  }
+  .sm-cols-start-2 {
+    --cols-start: 2;
+  }
+  .sm-cols-start-3 {
+    --cols-start: 3;
+  }
+  .sm-cols-start-4 {
+    --cols-start: 4;
+  }
+  .sm-cols-start-5 {
+    --cols-start: 5;
+  }
+  .sm-cols-start-6 {
+    --cols-start: 6;
+  }
+  .sm-cols-start-7 {
+    --cols-start: 7;
+  }
+  .sm-cols-start-8 {
+    --cols-start: 8;
+  }
+  .sm-cols-start-9 {
+    --cols-start: 9;
+  }
+  .sm-cols-start-10 {
+    --cols-start: 10;
+  }
+  .sm-cols-start-11 {
+    --cols-start: 11;
+  }
+  .sm-cols-start-12 {
+    --cols-start: 12;
+  }
+  .sm-cols-start-13 {
+    --cols-start: 13;
+  }
+  .sm-cols-start-14 {
+    --cols-start: 14;
+  }
+}
+@media (width >= 48em) {
+  .md-cols-start-1 {
+    --cols-start: 1;
+  }
+  .md-cols-start-2 {
+    --cols-start: 2;
+  }
+  .md-cols-start-3 {
+    --cols-start: 3;
+  }
+  .md-cols-start-4 {
+    --cols-start: 4;
+  }
+  .md-cols-start-5 {
+    --cols-start: 5;
+  }
+  .md-cols-start-6 {
+    --cols-start: 6;
+  }
+  .md-cols-start-7 {
+    --cols-start: 7;
+  }
+  .md-cols-start-8 {
+    --cols-start: 8;
+  }
+  .md-cols-start-9 {
+    --cols-start: 9;
+  }
+  .md-cols-start-10 {
+    --cols-start: 10;
+  }
+  .md-cols-start-11 {
+    --cols-start: 11;
+  }
+  .md-cols-start-12 {
+    --cols-start: 12;
+  }
+  .md-cols-start-13 {
+    --cols-start: 13;
+  }
+  .md-cols-start-14 {
+    --cols-start: 14;
+  }
+}
+@media (width >= 62em) {
+  .lg-cols-start-1 {
+    --cols-start: 1;
+  }
+  .lg-cols-start-2 {
+    --cols-start: 2;
+  }
+  .lg-cols-start-3 {
+    --cols-start: 3;
+  }
+  .lg-cols-start-4 {
+    --cols-start: 4;
+  }
+  .lg-cols-start-5 {
+    --cols-start: 5;
+  }
+  .lg-cols-start-6 {
+    --cols-start: 6;
+  }
+  .lg-cols-start-7 {
+    --cols-start: 7;
+  }
+  .lg-cols-start-8 {
+    --cols-start: 8;
+  }
+  .lg-cols-start-9 {
+    --cols-start: 9;
+  }
+  .lg-cols-start-10 {
+    --cols-start: 10;
+  }
+  .lg-cols-start-11 {
+    --cols-start: 11;
+  }
+  .lg-cols-start-12 {
+    --cols-start: 12;
+  }
+  .lg-cols-start-13 {
+    --cols-start: 13;
+  }
+  .lg-cols-start-14 {
+    --cols-start: 14;
+  }
+}
+@media (width >= 75em) {
+  .xl-cols-start-1 {
+    --cols-start: 1;
+  }
+  .xl-cols-start-2 {
+    --cols-start: 2;
+  }
+  .xl-cols-start-3 {
+    --cols-start: 3;
+  }
+  .xl-cols-start-4 {
+    --cols-start: 4;
+  }
+  .xl-cols-start-5 {
+    --cols-start: 5;
+  }
+  .xl-cols-start-6 {
+    --cols-start: 6;
+  }
+  .xl-cols-start-7 {
+    --cols-start: 7;
+  }
+  .xl-cols-start-8 {
+    --cols-start: 8;
+  }
+  .xl-cols-start-9 {
+    --cols-start: 9;
+  }
+  .xl-cols-start-10 {
+    --cols-start: 10;
+  }
+  .xl-cols-start-11 {
+    --cols-start: 11;
+  }
+  .xl-cols-start-12 {
+    --cols-start: 12;
+  }
+  .xl-cols-start-13 {
+    --cols-start: 13;
+  }
+  .xl-cols-start-14 {
+    --cols-start: 14;
+  }
+}
+@media (width >= 87.5em) {
+  .xxl-cols-start-1 {
+    --cols-start: 1;
+  }
+  .xxl-cols-start-2 {
+    --cols-start: 2;
+  }
+  .xxl-cols-start-3 {
+    --cols-start: 3;
+  }
+  .xxl-cols-start-4 {
+    --cols-start: 4;
+  }
+  .xxl-cols-start-5 {
+    --cols-start: 5;
+  }
+  .xxl-cols-start-6 {
+    --cols-start: 6;
+  }
+  .xxl-cols-start-7 {
+    --cols-start: 7;
+  }
+  .xxl-cols-start-8 {
+    --cols-start: 8;
+  }
+  .xxl-cols-start-9 {
+    --cols-start: 9;
+  }
+  .xxl-cols-start-10 {
+    --cols-start: 10;
+  }
+  .xxl-cols-start-11 {
+    --cols-start: 11;
+  }
+  .xxl-cols-start-12 {
+    --cols-start: 12;
+  }
+  .xxl-cols-start-13 {
+    --cols-start: 13;
+  }
+  .xxl-cols-start-14 {
+    --cols-start: 14;
+  }
+}
+/** INDIVIDUALS COLUMNS, how much you want this column to grow */
+.col-1 {
+  --col-width: 1;
+}
+
+.col-2 {
+  --col-width: 2;
+}
+
+.col-3 {
+  --col-width: 3;
+}
+
+.col-4 {
+  --col-width: 4;
+}
+
+.col-5 {
+  --col-width: 5;
+}
+
+.col-6 {
+  --col-width: 6;
+}
+
+.col-7 {
+  --col-width: 7;
+}
+
+.col-8 {
+  --col-width: 8;
+}
+
+.col-9 {
+  --col-width: 9;
+}
+
+.col-10 {
+  --col-width: 10;
+}
+
+.col-11 {
+  --col-width: 11;
+}
+
+.col-12 {
+  --col-width: 12;
+}
+
+@media (width >= 36em) {
+  .sm-col-1 {
+    --col-width: 1;
+  }
+  .sm-col-2 {
+    --col-width: 2;
+  }
+  .sm-col-3 {
+    --col-width: 3;
+  }
+  .sm-col-4 {
+    --col-width: 4;
+  }
+  .sm-col-5 {
+    --col-width: 5;
+  }
+  .sm-col-6 {
+    --col-width: 6;
+  }
+  .sm-col-7 {
+    --col-width: 7;
+  }
+  .sm-col-8 {
+    --col-width: 8;
+  }
+  .sm-col-9 {
+    --col-width: 9;
+  }
+  .sm-col-10 {
+    --col-width: 10;
+  }
+  .sm-col-11 {
+    --col-width: 11;
+  }
+  .sm-col-12 {
+    --col-width: 12;
+  }
+}
+@media (width >= 48em) {
+  .md-col-1 {
+    --col-width: 1;
+  }
+  .md-col-2 {
+    --col-width: 2;
+  }
+  .md-col-3 {
+    --col-width: 3;
+  }
+  .md-col-4 {
+    --col-width: 4;
+  }
+  .md-col-5 {
+    --col-width: 5;
+  }
+  .md-col-6 {
+    --col-width: 6;
+  }
+  .md-col-7 {
+    --col-width: 7;
+  }
+  .md-col-8 {
+    --col-width: 8;
+  }
+  .md-col-9 {
+    --col-width: 9;
+  }
+  .md-col-10 {
+    --col-width: 10;
+  }
+  .md-col-11 {
+    --col-width: 11;
+  }
+  .md-col-12 {
+    --col-width: 12;
+  }
+}
+@media (width >= 62em) {
+  .lg-col-1 {
+    --col-width: 1;
+  }
+  .lg-col-2 {
+    --col-width: 2;
+  }
+  .lg-col-3 {
+    --col-width: 3;
+  }
+  .lg-col-4 {
+    --col-width: 4;
+  }
+  .lg-col-5 {
+    --col-width: 5;
+  }
+  .lg-col-6 {
+    --col-width: 6;
+  }
+  .lg-col-7 {
+    --col-width: 7;
+  }
+  .lg-col-8 {
+    --col-width: 8;
+  }
+  .lg-col-9 {
+    --col-width: 9;
+  }
+  .lg-col-10 {
+    --col-width: 10;
+  }
+  .lg-col-11 {
+    --col-width: 11;
+  }
+  .lg-col-12 {
+    --col-width: 12;
+  }
+}
+@media (width >= 75em) {
+  .xl-col-1 {
+    --col-width: 1;
+  }
+  .xl-col-2 {
+    --col-width: 2;
+  }
+  .xl-col-3 {
+    --col-width: 3;
+  }
+  .xl-col-4 {
+    --col-width: 4;
+  }
+  .xl-col-5 {
+    --col-width: 5;
+  }
+  .xl-col-6 {
+    --col-width: 6;
+  }
+  .xl-col-7 {
+    --col-width: 7;
+  }
+  .xl-col-8 {
+    --col-width: 8;
+  }
+  .xl-col-9 {
+    --col-width: 9;
+  }
+  .xl-col-10 {
+    --col-width: 10;
+  }
+  .xl-col-11 {
+    --col-width: 11;
+  }
+  .xl-col-12 {
+    --col-width: 12;
+  }
+}
+@media (width >= 87.5em) {
+  .xxl-col-1 {
+    --col-width: 1;
+  }
+  .xxl-col-2 {
+    --col-width: 2;
+  }
+  .xxl-col-3 {
+    --col-width: 3;
+  }
+  .xxl-col-4 {
+    --col-width: 4;
+  }
+  .xxl-col-5 {
+    --col-width: 5;
+  }
+  .xxl-col-6 {
+    --col-width: 6;
+  }
+  .xxl-col-7 {
+    --col-width: 7;
+  }
+  .xxl-col-8 {
+    --col-width: 8;
+  }
+  .xxl-col-9 {
+    --col-width: 9;
+  }
+  .xxl-col-10 {
+    --col-width: 10;
+  }
+  .xxl-col-11 {
+    --col-width: 11;
+  }
+  .xxl-col-12 {
+    --col-width: 12;
+  }
+}
+/* From where you want this column to start */
+.col-start-1 {
+  --col-start: 1;
+}
+
+.col-start-2 {
+  --col-start: 2;
+}
+
+.col-start-3 {
+  --col-start: 3;
+}
+
+.col-start-4 {
+  --col-start: 4;
+}
+
+.col-start-5 {
+  --col-start: 5;
+}
+
+.col-start-6 {
+  --col-start: 6;
+}
+
+.col-start-7 {
+  --col-start: 7;
+}
+
+.col-start-8 {
+  --col-start: 8;
+}
+
+.col-start-9 {
+  --col-start: 9;
+}
+
+.col-start-10 {
+  --col-start: 10;
+}
+
+.col-start-11 {
+  --col-start: 11;
+}
+
+@media (width >= 36em) {
+  .sm-col-start-1 {
+    --col-start: 1;
+  }
+  .sm-col-start-2 {
+    --col-start: 2;
+  }
+  .sm-col-start-3 {
+    --col-start: 3;
+  }
+  .sm-col-start-4 {
+    --col-start: 4;
+  }
+  .sm-col-start-5 {
+    --col-start: 5;
+  }
+  .sm-col-start-6 {
+    --col-start: 6;
+  }
+  .sm-col-start-7 {
+    --col-start: 7;
+  }
+  .sm-col-start-8 {
+    --col-start: 8;
+  }
+  .sm-col-start-9 {
+    --col-start: 9;
+  }
+  .sm-col-start-10 {
+    --col-start: 10;
+  }
+  .sm-col-start-11 {
+    --col-start: 11;
+  }
+}
+@media (width >= 48em) {
+  .md-col-start-1 {
+    --col-start: 1;
+  }
+  .md-col-start-2 {
+    --col-start: 2;
+  }
+  .md-col-start-3 {
+    --col-start: 3;
+  }
+  .md-col-start-4 {
+    --col-start: 4;
+  }
+  .md-col-start-5 {
+    --col-start: 5;
+  }
+  .md-col-start-6 {
+    --col-start: 6;
+  }
+  .md-col-start-7 {
+    --col-start: 7;
+  }
+  .md-col-start-8 {
+    --col-start: 8;
+  }
+  .md-col-start-9 {
+    --col-start: 9;
+  }
+  .md-col-start-10 {
+    --col-start: 10;
+  }
+  .md-col-start-11 {
+    --col-start: 11;
+  }
+}
+@media (width >= 62em) {
+  .lg-col-start-1 {
+    --col-start: 1;
+  }
+  .lg-col-start-2 {
+    --col-start: 2;
+  }
+  .lg-col-start-3 {
+    --col-start: 3;
+  }
+  .lg-col-start-4 {
+    --col-start: 4;
+  }
+  .lg-col-start-5 {
+    --col-start: 5;
+  }
+  .lg-col-start-6 {
+    --col-start: 6;
+  }
+  .lg-col-start-7 {
+    --col-start: 7;
+  }
+  .lg-col-start-8 {
+    --col-start: 8;
+  }
+  .lg-col-start-9 {
+    --col-start: 9;
+  }
+  .lg-col-start-10 {
+    --col-start: 10;
+  }
+  .lg-col-start-11 {
+    --col-start: 11;
+  }
+}
+@media (width >= 75em) {
+  .xl-col-start-1 {
+    --col-start: 1;
+  }
+  .xl-col-start-2 {
+    --col-start: 2;
+  }
+  .xl-col-start-3 {
+    --col-start: 3;
+  }
+  .xl-col-start-4 {
+    --col-start: 4;
+  }
+  .xl-col-start-5 {
+    --col-start: 5;
+  }
+  .xl-col-start-6 {
+    --col-start: 6;
+  }
+  .xl-col-start-7 {
+    --col-start: 7;
+  }
+  .xl-col-start-8 {
+    --col-start: 8;
+  }
+  .xl-col-start-9 {
+    --col-start: 9;
+  }
+  .xl-col-start-10 {
+    --col-start: 10;
+  }
+  .xl-col-start-11 {
+    --col-start: 11;
+  }
+}
+@media (width >= 87.5em) {
+  .xxl-col-start-1 {
+    --col-start: 1;
+  }
+  .xxl-col-start-2 {
+    --col-start: 2;
+  }
+  .xxl-col-start-3 {
+    --col-start: 3;
+  }
+  .xxl-col-start-4 {
+    --col-start: 4;
+  }
+  .xxl-col-start-5 {
+    --col-start: 5;
+  }
+  .xxl-col-start-6 {
+    --col-start: 6;
+  }
+  .xxl-col-start-7 {
+    --col-start: 7;
+  }
+  .xxl-col-start-8 {
+    --col-start: 8;
+  }
+  .xxl-col-start-9 {
+    --col-start: 9;
+  }
+  .xxl-col-start-10 {
+    --col-start: 10;
+  }
+  .xxl-col-start-11 {
+    --col-start: 11;
+  }
+}
+/** ROW CONTENT AREA SIZE */
+@media (width >= 36em) {
+  .cols-sm {
+    --content-max-width: 33.75rem;
+  }
+}
+@media (width >= 48em) {
+  .cols-md {
+    --content-max-width: 45rem;
+  }
+}
+@media (width >= 62em) {
+  .cols-lg {
+    --content-max-width: 60rem;
+  }
+}
+@media (width >= 75em) {
+  .cols-xl {
+    --content-max-width: 71.25rem;
+  }
+}
+@media (width >= 87.5em) {
+  .cols-xxl {
+    --content-max-width: 82.5rem;
+  }
+}
+/** GAPS */
+.g-0,
+.g-col-0 {
+  --gap-col: var(--spacer-0);
+}
+
+.g-0,
+.g-row-0 {
+  --gap-row: var(--spacer-0);
+}
+
+.g-1,
+.g-col-1 {
+  --gap-col: var(--spacer-1);
+}
+
+.g-1,
+.g-row-1 {
+  --gap-row: var(--spacer-1);
+}
+
+.g-2,
+.g-col-2 {
+  --gap-col: var(--spacer-2);
+}
+
+.g-2,
+.g-row-2 {
+  --gap-row: var(--spacer-2);
+}
+
+.g-3,
+.g-col-3 {
+  --gap-col: var(--spacer-3);
+}
+
+.g-3,
+.g-row-3 {
+  --gap-row: var(--spacer-3);
+}
+
+.g-4,
+.g-col-4 {
+  --gap-col: var(--spacer-4);
+}
+
+.g-4,
+.g-row-4 {
+  --gap-row: var(--spacer-4);
+}
+
+.g-5,
+.g-col-5 {
+  --gap-col: var(--spacer-5);
+}
+
+.g-5,
+.g-row-5 {
+  --gap-row: var(--spacer-5);
+}
+
+.g-6,
+.g-col-6 {
+  --gap-col: var(--spacer-6);
+}
+
+.g-6,
+.g-row-6 {
+  --gap-row: var(--spacer-6);
+}
+
+@media (width >= 36em) {
+  .sm-g-0,
+  .sm-g-col-0 {
+    --gap-col: var(--spacer-0);
+  }
+  .sm-g-0,
+  .sm-g-row-0 {
+    --gap-row: var(--spacer-0);
+  }
+  .sm-g-1,
+  .sm-g-col-1 {
+    --gap-col: var(--spacer-1);
+  }
+  .sm-g-1,
+  .sm-g-row-1 {
+    --gap-row: var(--spacer-1);
+  }
+  .sm-g-2,
+  .sm-g-col-2 {
+    --gap-col: var(--spacer-2);
+  }
+  .sm-g-2,
+  .sm-g-row-2 {
+    --gap-row: var(--spacer-2);
+  }
+  .sm-g-3,
+  .sm-g-col-3 {
+    --gap-col: var(--spacer-3);
+  }
+  .sm-g-3,
+  .sm-g-row-3 {
+    --gap-row: var(--spacer-3);
+  }
+  .sm-g-4,
+  .sm-g-col-4 {
+    --gap-col: var(--spacer-4);
+  }
+  .sm-g-4,
+  .sm-g-row-4 {
+    --gap-row: var(--spacer-4);
+  }
+  .sm-g-5,
+  .sm-g-col-5 {
+    --gap-col: var(--spacer-5);
+  }
+  .sm-g-5,
+  .sm-g-row-5 {
+    --gap-row: var(--spacer-5);
+  }
+  .sm-g-6,
+  .sm-g-col-6 {
+    --gap-col: var(--spacer-6);
+  }
+  .sm-g-6,
+  .sm-g-row-6 {
+    --gap-row: var(--spacer-6);
+  }
+}
+/* Hi column, do you need some offsets */
+/**
+* NOTE: When you reset your column gap to 0, make sure to use the custom property --gap-col and suffix the "0" with a unit when using offset utility classes to make it work
+--gap-col: 0rem;
+*/
+.offset-start-1 {
+  --offset-start: 1;
+}
+
+.offset-end-1 {
+  --offset-end: 1;
+}
+
+.offset-start-2 {
+  --offset-start: 2;
+}
+
+.offset-end-2 {
+  --offset-end: 2;
+}
+
+.offset-start-3 {
+  --offset-start: 3;
+}
+
+.offset-end-3 {
+  --offset-end: 3;
+}
+
+.offset-start-4 {
+  --offset-start: 4;
+}
+
+.offset-end-4 {
+  --offset-end: 4;
+}
+
+.offset-start-5 {
+  --offset-start: 5;
+}
+
+.offset-end-5 {
+  --offset-end: 5;
+}
+
+.offset-start-6 {
+  --offset-start: 6;
+}
+
+.offset-end-6 {
+  --offset-end: 6;
+}
+
+.offset-start-7 {
+  --offset-start: 7;
+}
+
+.offset-end-7 {
+  --offset-end: 7;
+}
+
+.offset-start-8 {
+  --offset-start: 8;
+}
+
+.offset-end-8 {
+  --offset-end: 8;
+}
+
+.offset-start-9 {
+  --offset-start: 9;
+}
+
+.offset-end-9 {
+  --offset-end: 9;
+}
+
+.offset-start-10 {
+  --offset-start: 10;
+}
+
+.offset-end-10 {
+  --offset-end: 10;
+}
+
+.offset-start-11 {
+  --offset-start: 11;
+}
+
+.offset-end-11 {
+  --offset-end: 11;
+}
+
+@media (width >= 48em) {
+  .md-g-0,
+  .md-g-col-0 {
+    --gap-col: var(--spacer-0);
+  }
+  .md-g-0,
+  .md-g-row-0 {
+    --gap-row: var(--spacer-0);
+  }
+  .md-g-1,
+  .md-g-col-1 {
+    --gap-col: var(--spacer-1);
+  }
+  .md-g-1,
+  .md-g-row-1 {
+    --gap-row: var(--spacer-1);
+  }
+  .md-g-2,
+  .md-g-col-2 {
+    --gap-col: var(--spacer-2);
+  }
+  .md-g-2,
+  .md-g-row-2 {
+    --gap-row: var(--spacer-2);
+  }
+  .md-g-3,
+  .md-g-col-3 {
+    --gap-col: var(--spacer-3);
+  }
+  .md-g-3,
+  .md-g-row-3 {
+    --gap-row: var(--spacer-3);
+  }
+  .md-g-4,
+  .md-g-col-4 {
+    --gap-col: var(--spacer-4);
+  }
+  .md-g-4,
+  .md-g-row-4 {
+    --gap-row: var(--spacer-4);
+  }
+  .md-g-5,
+  .md-g-col-5 {
+    --gap-col: var(--spacer-5);
+  }
+  .md-g-5,
+  .md-g-row-5 {
+    --gap-row: var(--spacer-5);
+  }
+  .md-g-6,
+  .md-g-col-6 {
+    --gap-col: var(--spacer-6);
+  }
+  .md-g-6,
+  .md-g-row-6 {
+    --gap-row: var(--spacer-6);
+  }
+}
+/* Hi column, do you need some offsets */
+/**
+* NOTE: When you reset your column gap to 0, make sure to use the custom property --gap-col and suffix the "0" with a unit when using offset utility classes to make it work
+--gap-col: 0rem;
+*/
+.offset-start-1 {
+  --offset-start: 1;
+}
+
+.offset-end-1 {
+  --offset-end: 1;
+}
+
+.offset-start-2 {
+  --offset-start: 2;
+}
+
+.offset-end-2 {
+  --offset-end: 2;
+}
+
+.offset-start-3 {
+  --offset-start: 3;
+}
+
+.offset-end-3 {
+  --offset-end: 3;
+}
+
+.offset-start-4 {
+  --offset-start: 4;
+}
+
+.offset-end-4 {
+  --offset-end: 4;
+}
+
+.offset-start-5 {
+  --offset-start: 5;
+}
+
+.offset-end-5 {
+  --offset-end: 5;
+}
+
+.offset-start-6 {
+  --offset-start: 6;
+}
+
+.offset-end-6 {
+  --offset-end: 6;
+}
+
+.offset-start-7 {
+  --offset-start: 7;
+}
+
+.offset-end-7 {
+  --offset-end: 7;
+}
+
+.offset-start-8 {
+  --offset-start: 8;
+}
+
+.offset-end-8 {
+  --offset-end: 8;
+}
+
+.offset-start-9 {
+  --offset-start: 9;
+}
+
+.offset-end-9 {
+  --offset-end: 9;
+}
+
+.offset-start-10 {
+  --offset-start: 10;
+}
+
+.offset-end-10 {
+  --offset-end: 10;
+}
+
+.offset-start-11 {
+  --offset-start: 11;
+}
+
+.offset-end-11 {
+  --offset-end: 11;
+}
+
+@media (width >= 62em) {
+  .lg-g-0,
+  .lg-g-col-0 {
+    --gap-col: var(--spacer-0);
+  }
+  .lg-g-0,
+  .lg-g-row-0 {
+    --gap-row: var(--spacer-0);
+  }
+  .lg-g-1,
+  .lg-g-col-1 {
+    --gap-col: var(--spacer-1);
+  }
+  .lg-g-1,
+  .lg-g-row-1 {
+    --gap-row: var(--spacer-1);
+  }
+  .lg-g-2,
+  .lg-g-col-2 {
+    --gap-col: var(--spacer-2);
+  }
+  .lg-g-2,
+  .lg-g-row-2 {
+    --gap-row: var(--spacer-2);
+  }
+  .lg-g-3,
+  .lg-g-col-3 {
+    --gap-col: var(--spacer-3);
+  }
+  .lg-g-3,
+  .lg-g-row-3 {
+    --gap-row: var(--spacer-3);
+  }
+  .lg-g-4,
+  .lg-g-col-4 {
+    --gap-col: var(--spacer-4);
+  }
+  .lg-g-4,
+  .lg-g-row-4 {
+    --gap-row: var(--spacer-4);
+  }
+  .lg-g-5,
+  .lg-g-col-5 {
+    --gap-col: var(--spacer-5);
+  }
+  .lg-g-5,
+  .lg-g-row-5 {
+    --gap-row: var(--spacer-5);
+  }
+  .lg-g-6,
+  .lg-g-col-6 {
+    --gap-col: var(--spacer-6);
+  }
+  .lg-g-6,
+  .lg-g-row-6 {
+    --gap-row: var(--spacer-6);
+  }
+}
+/* Hi column, do you need some offsets */
+/**
+* NOTE: When you reset your column gap to 0, make sure to use the custom property --gap-col and suffix the "0" with a unit when using offset utility classes to make it work
+--gap-col: 0rem;
+*/
+.offset-start-1 {
+  --offset-start: 1;
+}
+
+.offset-end-1 {
+  --offset-end: 1;
+}
+
+.offset-start-2 {
+  --offset-start: 2;
+}
+
+.offset-end-2 {
+  --offset-end: 2;
+}
+
+.offset-start-3 {
+  --offset-start: 3;
+}
+
+.offset-end-3 {
+  --offset-end: 3;
+}
+
+.offset-start-4 {
+  --offset-start: 4;
+}
+
+.offset-end-4 {
+  --offset-end: 4;
+}
+
+.offset-start-5 {
+  --offset-start: 5;
+}
+
+.offset-end-5 {
+  --offset-end: 5;
+}
+
+.offset-start-6 {
+  --offset-start: 6;
+}
+
+.offset-end-6 {
+  --offset-end: 6;
+}
+
+.offset-start-7 {
+  --offset-start: 7;
+}
+
+.offset-end-7 {
+  --offset-end: 7;
+}
+
+.offset-start-8 {
+  --offset-start: 8;
+}
+
+.offset-end-8 {
+  --offset-end: 8;
+}
+
+.offset-start-9 {
+  --offset-start: 9;
+}
+
+.offset-end-9 {
+  --offset-end: 9;
+}
+
+.offset-start-10 {
+  --offset-start: 10;
+}
+
+.offset-end-10 {
+  --offset-end: 10;
+}
+
+.offset-start-11 {
+  --offset-start: 11;
+}
+
+.offset-end-11 {
+  --offset-end: 11;
+}
+
+@media (width >= 75em) {
+  .xl-g-0,
+  .xl-g-col-0 {
+    --gap-col: var(--spacer-0);
+  }
+  .xl-g-0,
+  .xl-g-row-0 {
+    --gap-row: var(--spacer-0);
+  }
+  .xl-g-1,
+  .xl-g-col-1 {
+    --gap-col: var(--spacer-1);
+  }
+  .xl-g-1,
+  .xl-g-row-1 {
+    --gap-row: var(--spacer-1);
+  }
+  .xl-g-2,
+  .xl-g-col-2 {
+    --gap-col: var(--spacer-2);
+  }
+  .xl-g-2,
+  .xl-g-row-2 {
+    --gap-row: var(--spacer-2);
+  }
+  .xl-g-3,
+  .xl-g-col-3 {
+    --gap-col: var(--spacer-3);
+  }
+  .xl-g-3,
+  .xl-g-row-3 {
+    --gap-row: var(--spacer-3);
+  }
+  .xl-g-4,
+  .xl-g-col-4 {
+    --gap-col: var(--spacer-4);
+  }
+  .xl-g-4,
+  .xl-g-row-4 {
+    --gap-row: var(--spacer-4);
+  }
+  .xl-g-5,
+  .xl-g-col-5 {
+    --gap-col: var(--spacer-5);
+  }
+  .xl-g-5,
+  .xl-g-row-5 {
+    --gap-row: var(--spacer-5);
+  }
+  .xl-g-6,
+  .xl-g-col-6 {
+    --gap-col: var(--spacer-6);
+  }
+  .xl-g-6,
+  .xl-g-row-6 {
+    --gap-row: var(--spacer-6);
+  }
+}
+/* Hi column, do you need some offsets */
+/**
+* NOTE: When you reset your column gap to 0, make sure to use the custom property --gap-col and suffix the "0" with a unit when using offset utility classes to make it work
+--gap-col: 0rem;
+*/
+.offset-start-1 {
+  --offset-start: 1;
+}
+
+.offset-end-1 {
+  --offset-end: 1;
+}
+
+.offset-start-2 {
+  --offset-start: 2;
+}
+
+.offset-end-2 {
+  --offset-end: 2;
+}
+
+.offset-start-3 {
+  --offset-start: 3;
+}
+
+.offset-end-3 {
+  --offset-end: 3;
+}
+
+.offset-start-4 {
+  --offset-start: 4;
+}
+
+.offset-end-4 {
+  --offset-end: 4;
+}
+
+.offset-start-5 {
+  --offset-start: 5;
+}
+
+.offset-end-5 {
+  --offset-end: 5;
+}
+
+.offset-start-6 {
+  --offset-start: 6;
+}
+
+.offset-end-6 {
+  --offset-end: 6;
+}
+
+.offset-start-7 {
+  --offset-start: 7;
+}
+
+.offset-end-7 {
+  --offset-end: 7;
+}
+
+.offset-start-8 {
+  --offset-start: 8;
+}
+
+.offset-end-8 {
+  --offset-end: 8;
+}
+
+.offset-start-9 {
+  --offset-start: 9;
+}
+
+.offset-end-9 {
+  --offset-end: 9;
+}
+
+.offset-start-10 {
+  --offset-start: 10;
+}
+
+.offset-end-10 {
+  --offset-end: 10;
+}
+
+.offset-start-11 {
+  --offset-start: 11;
+}
+
+.offset-end-11 {
+  --offset-end: 11;
+}
+
+@media (width >= 87.5em) {
+  .xxl-g-0,
+  .xxl-g-col-0 {
+    --gap-col: var(--spacer-0);
+  }
+  .xxl-g-0,
+  .xxl-g-row-0 {
+    --gap-row: var(--spacer-0);
+  }
+  .xxl-g-1,
+  .xxl-g-col-1 {
+    --gap-col: var(--spacer-1);
+  }
+  .xxl-g-1,
+  .xxl-g-row-1 {
+    --gap-row: var(--spacer-1);
+  }
+  .xxl-g-2,
+  .xxl-g-col-2 {
+    --gap-col: var(--spacer-2);
+  }
+  .xxl-g-2,
+  .xxl-g-row-2 {
+    --gap-row: var(--spacer-2);
+  }
+  .xxl-g-3,
+  .xxl-g-col-3 {
+    --gap-col: var(--spacer-3);
+  }
+  .xxl-g-3,
+  .xxl-g-row-3 {
+    --gap-row: var(--spacer-3);
+  }
+  .xxl-g-4,
+  .xxl-g-col-4 {
+    --gap-col: var(--spacer-4);
+  }
+  .xxl-g-4,
+  .xxl-g-row-4 {
+    --gap-row: var(--spacer-4);
+  }
+  .xxl-g-5,
+  .xxl-g-col-5 {
+    --gap-col: var(--spacer-5);
+  }
+  .xxl-g-5,
+  .xxl-g-row-5 {
+    --gap-row: var(--spacer-5);
+  }
+  .xxl-g-6,
+  .xxl-g-col-6 {
+    --gap-col: var(--spacer-6);
+  }
+  .xxl-g-6,
+  .xxl-g-row-6 {
+    --gap-row: var(--spacer-6);
+  }
+}
+/* Hi column, do you need some offsets */
+/**
+* NOTE: When you reset your column gap to 0, make sure to use the custom property --gap-col and suffix the "0" with a unit when using offset utility classes to make it work
+--gap-col: 0rem;
+*/
+.offset-start-1 {
+  --offset-start: 1;
+}
+
+.offset-end-1 {
+  --offset-end: 1;
+}
+
+.offset-start-2 {
+  --offset-start: 2;
+}
+
+.offset-end-2 {
+  --offset-end: 2;
+}
+
+.offset-start-3 {
+  --offset-start: 3;
+}
+
+.offset-end-3 {
+  --offset-end: 3;
+}
+
+.offset-start-4 {
+  --offset-start: 4;
+}
+
+.offset-end-4 {
+  --offset-end: 4;
+}
+
+.offset-start-5 {
+  --offset-start: 5;
+}
+
+.offset-end-5 {
+  --offset-end: 5;
+}
+
+.offset-start-6 {
+  --offset-start: 6;
+}
+
+.offset-end-6 {
+  --offset-end: 6;
+}
+
+.offset-start-7 {
+  --offset-start: 7;
+}
+
+.offset-end-7 {
+  --offset-end: 7;
+}
+
+.offset-start-8 {
+  --offset-start: 8;
+}
+
+.offset-end-8 {
+  --offset-end: 8;
+}
+
+.offset-start-9 {
+  --offset-start: 9;
+}
+
+.offset-end-9 {
+  --offset-end: 9;
+}
+
+.offset-start-10 {
+  --offset-start: 10;
+}
+
+.offset-end-10 {
+  --offset-end: 10;
+}
+
+.offset-start-11 {
+  --offset-start: 11;
+}
+
+.offset-end-11 {
+  --offset-end: 11;
+}
+
+/** GENERATOR UTILITY CLASSES */
+@layer utilities {
+  .bg-neutral-000 {
+    background-color: var(--clr-neutral-000);
+  }
+  .bg-neutral-50 {
+    background-color: var(--clr-neutral-50);
+  }
+  .bg-neutral-100 {
+    background-color: var(--clr-neutral-100);
+  }
+  .bg-neutral-150 {
+    background-color: var(--clr-neutral-150);
+  }
+  .bg-neutral-200 {
+    background-color: var(--clr-neutral-200);
+  }
+  .bg-neutral-300 {
+    background-color: var(--clr-neutral-300);
+  }
+  .bg-neutral-400 {
+    background-color: var(--clr-neutral-400);
+  }
+  .bg-neutral-500 {
+    background-color: var(--clr-neutral-500);
+  }
+  .bg-neutral-600 {
+    background-color: var(--clr-neutral-600);
+  }
+  .bg-neutral-700 {
+    background-color: var(--clr-neutral-700);
+  }
+  .bg-neutral-800 {
+    background-color: var(--clr-neutral-800);
+  }
+  .bg-neutral-900 {
+    background-color: var(--clr-neutral-900);
+  }
+  .bg-neutral-1000 {
+    background-color: var(--clr-neutral-1000);
+  }
+  .bg-primary-400 {
+    background-color: var(--clr-primary-400);
+  }
+  .bg-accent-400 {
+    background-color: var(--clr-accent-400);
+  }
+  .bg-secondary-400 {
+    background-color: var(--clr-secondary-400);
+  }
+  .text-neutral-000 {
+    color: var(--clr-neutral-000);
+  }
+  .text-neutral-50 {
+    color: var(--clr-neutral-50);
+  }
+  .text-neutral-100 {
+    color: var(--clr-neutral-100);
+  }
+  .text-neutral-150 {
+    color: var(--clr-neutral-150);
+  }
+  .text-neutral-200 {
+    color: var(--clr-neutral-200);
+  }
+  .text-neutral-300 {
+    color: var(--clr-neutral-300);
+  }
+  .text-neutral-400 {
+    color: var(--clr-neutral-400);
+  }
+  .text-neutral-500 {
+    color: var(--clr-neutral-500);
+  }
+  .text-neutral-600 {
+    color: var(--clr-neutral-600);
+  }
+  .text-neutral-700 {
+    color: var(--clr-neutral-700);
+  }
+  .text-neutral-800 {
+    color: var(--clr-neutral-800);
+  }
+  .text-neutral-900 {
+    color: var(--clr-neutral-900);
+  }
+  .text-neutral-1000 {
+    color: var(--clr-neutral-1000);
+  }
+  .text-primary-400 {
+    color: var(--clr-primary-400);
+  }
+  .text-accent-400 {
+    color: var(--clr-accent-400);
+  }
+  .text-secondary-400 {
+    color: var(--clr-secondary-400);
+  }
+  .fs-100 {
+    font-size: var(--fs-100);
+  }
+  .fs-200 {
+    font-size: var(--fs-200);
+  }
+  .fs-300 {
+    font-size: var(--fs-300);
+  }
+  .fs-400 {
+    font-size: var(--fs-400);
+  }
+  .fs-500 {
+    font-size: var(--fs-500);
+  }
+  .fs-600 {
+    font-size: var(--fs-600);
+  }
+  .fs-700 {
+    font-size: var(--fs-700);
+  }
+  .fs-800 {
+    font-size: var(--fs-800);
+  }
+  .fs-900 {
+    font-size: var(--fs-900);
+  }
+  .fs-1000 {
+    font-size: var(--fs-1000);
+  }
+  .fw-light {
+    font-weight: var(--fw-light);
+  }
+  .fw-regular {
+    font-weight: var(--fw-regular);
+  }
+  .fw-medium {
+    font-weight: var(--fw-medium);
+  }
+  .fw-semibold {
+    font-weight: var(--fw-semibold);
+  }
+  .fw-bold {
+    font-weight: var(--fw-bold);
+  }
+  .fw-black {
+    font-weight: var(--fw-black);
+  }
+  .text-transform-uppercase {
+    text-transform: uppercase;
+  }
+  .text-align-center {
+    text-align: center;
+  }
+}
+/** SECTION */
+/*
+Consistent block padding for page sections
+*/
+@layer utilities {
+  .section {
+    padding-block: var(--section-spacer);
+  }
+}
+/** Visually hides element from users */
+@layer utilities {
+  .visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+  }
+}
+/* ---------------- */
+/* PAGES            */
+/* ---------------- */
+/** GLOBAL SHARED RULES */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  background-color: var(--clr-neutral-000);
+}
+
+.preloader-inner {
+  --justify: center;
+  --dot-size: 1rem;
+  width: min(100% - 2rem, 10rem);
+}
+.preloader-inner .dot,
+.preloader-inner .dots > li {
+  display: block;
+  width: 1rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--clr-primary-400);
+}
+.preloader-inner .dot {
+  -webkit-animation: dot 2.8s infinite;
+          animation: dot 2.8s infinite;
+}
+.preloader-inner .dots {
+  -webkit-animation: dots 2.8s infinite;
+          animation: dots 2.8s infinite;
+}
+
+@-webkit-keyframes dot {
+  50% {
+    -webkit-transform: translateX(6rem);
+            transform: translateX(6rem);
+  }
+}
+
+@keyframes dot {
+  50% {
+    -webkit-transform: translateX(6rem);
+            transform: translateX(6rem);
+  }
+}
+@-webkit-keyframes dots {
+  50% {
+    -webkit-transform: translateX(-2rem);
+            transform: translateX(-2rem);
+  }
+}
+@keyframes dots {
+  50% {
+    -webkit-transform: translateX(-2rem);
+            transform: translateX(-2rem);
+  }
+}
+.section__intro {
+  display: -ms-grid;
+  display: grid;
+  gap: 1rem;
+  -webkit-margin-after: 2rem;
+          margin-block-end: 2rem;
+}
+.section__intro > h2 {
+  color: var(--clr-accent-400);
+  text-transform: uppercase;
+}
+.section__intro > p span {
+  color: var(--clr-accent-400);
+}
+.section__intro::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 2px;
+  -webkit-margin-before: 0.5rem;
+          margin-block-start: 0.5rem;
+  background-color: var(--clr-accent-400);
+}
+.section__intro--centered {
+  place-items: center;
+  text-align: center;
+}
+.section__intro--inverse > :is(h2, p),
+.section__intro--inverse p span {
+  color: var(--clr-neutral-000);
+}
+.section__intro--inverse::after {
+  background-color: var(--clr-neutral-000);
+}
+
+.progress-list > * {
+  position: relative;
+  isolation: isolate;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  place-content: center;
+  width: 150px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(var(--progress-clr, var(--clr-primary-400)) var(--progress-percent, 90%), transparent var(--progress-percent, 90%));
+  text-align: center;
+}
+.progress-list > *::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--clr-neutral-000);
+}
+.progress-list > *:nth-child(2) {
+  --progress-percent: 80%;
+  --progress-clr: var(--clr-accent-400);
+}
+.progress-list > *:nth-child(3) {
+  --progress-percent: 80%;
+  --progress-clr: var(--clr-secondary-400);
+}
+
+.social-list a {
+  display: inline grid;
+  place-items: center;
+  width: 2rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--clr-neutral-300);
+  color: var(--clr-neutral-000);
+  font-size: var(--fs-300);
+}
+.social-list a:is(:hover, :focus-visible) {
+  background-color: var(--clr-primary-400);
+}
+
+/** HOMEPAGE */
+/*
+    #INTRO
+*/
+.intro {
+  --flow-spacer: 1.25rem;
+  background: url("../images/slider-left-dec.jpg") no-repeat, url("../images/slider-right-dec.jpg") no-repeat top right;
+  background-size: contain;
+}
+@media (width < 62em) {
+  .intro {
+    text-align: center;
+    background: url("../images/slider-left-dec.jpg") no-repeat top left;
+  }
+  .intro p {
+    margin-inline: auto;
+  }
+}
+
+/*
+    #ABOUT
+*/
+.about {
+  --flow-spacer: 1.75rem;
+  background: url("../images/about-right-dec.jpg") no-repeat top right;
+  background-size: contain;
+}
+.about a {
+  -webkit-text-decoration: underline dashed;
+          text-decoration: underline dashed;
+  text-underline-offset: 4px;
+  color: var(--clr-neutral-900);
+}
+.about a:is(:hover, :focus-visible) {
+  color: var(--clr-primary-400);
+}
+@media (width < 36em) {
+  .about .progress-list {
+    --direction: column;
+    --justify: center;
+  }
+}
+.about picture {
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+/*
+    #SERVICES
+*/
+.services {
+  background: url("../images/services-left-dec.jpg") no-repeat left, url("../images/services-right-dec.jpg") no-repeat right;
+  background-size: contain, 220px;
+}
+
+.tabs-btns {
+  --justify: center;
+  -webkit-margin-after: 3rem;
+          margin-block-end: 3rem;
+}
+.tabs-btns > button {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  gap: 0.5rem;
+  padding: 1em;
+  border-radius: var(--radius-sm);
+}
+.tabs-btns > button[aria-selected=true] {
+  -webkit-box-shadow: var(--shadow-200);
+          box-shadow: var(--shadow-200);
+}
+@media (width < 36em) {
+  .tabs-btns > button {
+    padding: 0.5em;
+  }
+  .tabs-btns > button span {
+    display: none;
+  }
+}
+
+.tabs-list {
+  position: relative;
+  min-height: 100%;
+  height: 100%;
+  -webkit-transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.tabs-item {
+  position: absolute;
+  -webkit-transform: translateX(-50px);
+          transform: translateX(-50px);
+  padding: 3em;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.tabs-item.is-active {
+  visibility: visible;
+  border-radius: var(--radius-md);
+  -webkit-box-shadow: var(--shadow-200);
+          box-shadow: var(--shadow-200);
+  background-color: var(--clr-neutral-000);
+  position: relative;
+  z-index: 2;
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+  opacity: 1;
+  -webkit-transition-delay: 300ms;
+          transition-delay: 300ms;
+}
+@media (width >= 48em) {
+  .tabs-item.is-active {
+    padding: 5em;
+  }
+}
+.tabs-item h3 {
+  color: var(--clr-primary-400);
+  line-height: 1.4;
+}
+.tabs-item picture {
+  -ms-grid-column-align: end;
+      justify-self: end;
+}
+@media (width < 62em) {
+  .tabs-item picture {
+    -ms-grid-column-align: start;
+        justify-self: start;
+  }
+}
+.tabs-item .check-list {
+  --gap: 1rem 1.5rem;
+}
+
+/*
+    #FREE QUOTE
+*/
+.free-quote {
+  background: url("../images/quote-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  -webkit-margin-before: 6rem;
+          margin-block-start: 6rem;
+}
+.free-quote form {
+  display: -ms-grid;
+  display: grid;
+  border-radius: var(--radius-lg);
+  background-color: var(--clr-neutral-000);
+  overflow: hidden;
+}
+.free-quote form > * {
+  width: 100%;
+}
+.free-quote form input {
+  padding: 1.5em 2em 0.5em;
+  -webkit-border-after: 1px solid var(--clr-neutral-150);
+          border-block-end: 1px solid var(--clr-neutral-150);
+  color: var(--clr-neutral-300);
+}
+.free-quote form input:focus-visible {
+  outline: 0;
+  border-color: var(--clr-primary-400);
+}
+.free-quote form button {
+  padding-block: 1.5em;
+  background-color: var(--clr-accent-400);
+  color: var(--clr-neutral-000);
+}
+@media (width >= 48em) {
+  .free-quote form {
+    -ms-grid-columns: 1fr 1rem 1fr 1rem 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .free-quote form input {
+    -webkit-margin-after: 1rem;
+            margin-block-end: 1rem;
+  }
+}
+@media (width >= 48em) and (width < 62em) {
+  .free-quote form {
+    border-start-end-radius: 0;
+  }
+  .free-quote form button {
+    border-end-start-radius: var(--radius-lg);
+  }
+}
+
+/*
+    #PORTFOLIO
+*/
+.portfolio {
+  background: url("../images/portfolio-left-dec.jpg") no-repeat top center, url("../images/portfolio-right-dec.jpg") no-repeat top center;
+  background-size: 80%;
+}
+@media (width < 62em) {
+  .portfolio .section__intro {
+    place-items: center;
+    text-align: center;
+  }
+}
+
+.portfolio-item {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1rem 1rem 1fr 1rem 1rem;
+  grid-template-columns: 1rem 1fr 1rem;
+  gap: 1rem;
+  -webkit-padding-after: 1em;
+          padding-block-end: 1em;
+  margin-block: 1rem;
+  border-radius: var(--radius-md);
+  -webkit-box-shadow: var(--shadow-200);
+          box-shadow: var(--shadow-200);
+  background-color: var(--clr-neutral-000);
+  overflow: hidden;
+  text-align: center;
+}
+.portfolio-item > * {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2/3;
+  -webkit-transition: color var(--transition-300);
+  transition: color var(--transition-300);
+  line-height: 1;
+}
+.portfolio-item > picture {
+  grid-column: 1/-1;
+}
+.portfolio-item:is(:hover, :focus-visible) h3,
+.portfolio-item:is(:hover, :focus-visible) p {
+  color: var(--clr-primary-400);
+}
+
+.portfolio-carousel .owl-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0.5rem;
+  position: absolute;
+  inset-block-start: -4rem;
+  inset-inline-end: 4rem;
+}
+@media (width < 48em) {
+  .portfolio-carousel .owl-nav {
+    display: none;
+  }
+}
+.portfolio-carousel .owl-nav button.owl-prev span,
+.portfolio-carousel .owl-nav button.owl-next span {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--clr-neutral-150);
+  color: var(--clr-neutral-000);
+  font-size: var(--fs-600);
+  line-height: 1;
+  width: 45px;
+  height: 45px;
+  -webkit-transition: background-color var(--transition-300);
+  transition: background-color var(--transition-300);
+}
+.portfolio-carousel .owl-nav button.owl-prev span:is(:hover, :focus-visible),
+.portfolio-carousel .owl-nav button.owl-next span:is(:hover, :focus-visible) {
+  background-color: var(--clr-primary-400);
+}
+
+/*
+    #BLOG
+*/
+.blog {
+  background: url("../images/blog-left-dec.jpg") no-repeat top center;
+  background-size: contain;
+}
+
+.blog-post {
+  display: -ms-grid;
+  display: grid;
+  place-content: start;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  gap: 1.5rem;
+}
+.blog-post img {
+  width: 100%;
+}
+.blog-post--featured {
+  -ms-grid-columns: 0.5rem 1fr 0.5rem;
+  grid-template-columns: 0.5rem 1fr 0.5rem;
+  -webkit-padding-after: 2rem;
+          padding-block-end: 2rem;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  -webkit-box-shadow: var(--shadow-200);
+          box-shadow: var(--shadow-200);
+  background-color: var(--clr-neutral-000);
+}
+.blog-post--featured > * {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2/3;
+}
+.blog-post--featured > picture {
+  grid-column: 1/-1;
+}
+.blog-post:not(.blog-post--featured) img {
+  border-radius: var(--radius-md);
+}
+@media (width >= 25em) {
+  .blog-post:not(.blog-post--featured) {
+    -ms-grid-columns: auto 1fr;
+    grid-template-columns: auto 1fr;
+        grid-template-areas: "pic info" "pic desc";
+  }
+  .blog-post:not(.blog-post--featured) > picture {
+    grid-area: pic;
+  }
+  .blog-post:not(.blog-post--featured) .post-info {
+    grid-area: info;
+    place-content: start;
+  }
+  .blog-post:not(.blog-post--featured) .post-desc {
+    grid-area: desc;
+  }
+}
+@media (width >= 25em){
+  .blog-post:not(.blog-post--featured) > picture {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+    -ms-grid-column: 1;
+  }
+  .blog-post:not(.blog-post--featured) .post-info {
+    -ms-grid-row: 1;
+    -ms-grid-column: 2;
+  }
+  .blog-post:not(.blog-post--featured) .post-desc {
+    -ms-grid-row: 2;
+    -ms-grid-column: 2;
+  }
+}
+@media (width < 36em) {
+  .blog-post:not(.blog-post--featured) .post-desc {
+    display: none;
+  }
+}
+@media (width < 62em) {
+  .blog-post:not(.blog-post--featured) > picture {
+    max-width: 140px;
+  }
+}
+@media (width >= 62em) {
+  .blog-post:not(.blog-post--featured) {
+        grid-template-areas: "pic info" "desc desc";
+  }
+  .blog-post:not(.blog-post--featured) > picture {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+    -ms-grid-column: 1;
+  }
+  .blog-post:not(.blog-post--featured) .post-info {
+    -ms-grid-row: 1;
+    -ms-grid-column: 2;
+  }
+  .blog-post:not(.blog-post--featured) .post-desc {
+    -ms-grid-row: 2;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+  }
+}
+
+.post-meta > span {
+  display: inline-block;
+  padding: 0.5em 1em;
+  border-radius: var(--radius-pull);
+  background-color: var(--clr-accent-400);
+  color: var(--clr-neutral-000);
+  font-weight: var(--fw-medium);
+}
+.post-meta > time {
+  color: var(--clr-neutral-300);
+}
+
+.post-author img {
+  max-width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.post-author p {
+  color: var(--clr-neutral-900);
+  font-size: var(--fs-300);
+  font-weight: var(--fw-medium);
+}
+
+/*
+    #CONTACT
+*/
+.contact-content {
+  padding: 4em 2em;
+  border-radius: var(--radius-md);
+  -webkit-box-shadow: var(--shadow-200);
+          box-shadow: var(--shadow-200);
+  background: url("../images/contact-top-right.png") no-repeat top right, url("../images/contact-bottom-right.png") no-repeat bottom right;
+}
+@media (width >= 48em) {
+  .contact-content {
+    padding-inline: 3em;
+  }
+}
+
+.contact-list {
+  width: 100%;
+}
+.contact-list > li {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+  padding: 1em;
+  border-radius: var(--radius-md);
+  background-color: var(--clr-neutral-000);
+  text-align: center;
+  -webkit-box-shadow: var(--shadow-200);
+          box-shadow: var(--shadow-200);
+}
+
+.contact-form {
+  display: -ms-grid;
+  display: grid;
+  gap: 1.5rem;
+  -webkit-margin-before: 3rem;
+          margin-block-start: 3rem;
+}
+@media (width >= 48em) {
+  .contact-form {
+    -ms-grid-columns: (1fr)[2];
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .contact-form input {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-column: 1/2;
+  }
+  .contact-form textarea {
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+    grid-column: 2/3;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 3;
+    grid-row: 1/4;
+  }
+  .contact-form button {
+    grid-column: 1/-1;
+  }
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.75em 1.5em;
+  border: 1px solid var(--clr-neutral-150);
+  border-radius: var(--radius-lg);
+  font-size: var(--fs-300);
+}
+.contact-form textarea {
+  border-radius: var(--radius-md);
+}
+.contact-form button {
+  --btn-padding: 1.25em 2em;
+}
